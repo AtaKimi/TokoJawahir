@@ -6,34 +6,38 @@ use App\Models\User;
 use App\Models\BuyBack;
 use Livewire\Component;
 use App\Enum\BuyBackStatus;
+use App\Models\Transaction;
+use App\Enum\TransactionStatus;
+use Livewire\Attributes\Locked;
 use App\Models\BuyBackPercentage;
 
 class Cart extends Component
 {
     public User $user;
 
-    public $transaction_details = [];
+    #[Locked]
+    public $transactions;
 
-    public BuyBack $buy_back;
+    #[Locked]
+    public $buy_backs;
+
+    #[Locked]
+    public $buy_back;
 
     public function mount(User $user)
     {
-        $this->user = $user;
-        $transactions = $user->transactions()->with('transactionDetails')->get();
-
-        foreach ($transactions as $transaction) {
-            foreach ($transaction->transactionDetails as $transaction_detail) {
-                $this->transaction_details[] = $transaction_detail;
+        $this->transactions = Transaction::where('user_id', $user->id)->where('status', TransactionStatus::SUCCESS)->with([
+            'transactionDetails' => function ($query) {
+                $query->withSum('buyBackDetails', 'quantity');
             }
-        }
+        ])->get();
+
 
         if (BuyBack::where('user_id', $this->user->id)->where('status', BuyBackStatus::PENDING)->exists()) {
             $this->buy_back = BuyBack::where('user_id', $this->user->id)->where('status', BuyBackStatus::PENDING)->first();
-
-
             foreach ($this->buy_back->buyBackDetails as $buy_back_detail) {
-                if ($buy_back_detail->transactionDetail->quantity <  $buy_back_detail->quantity) {
-                    $transaction_detail->delete();
+                if ($buy_back_detail->quantity > $buy_back_detail->transactionDetail->quantity_left) {
+                    $buy_back_detail->delete();
                 }
             }
         } else {

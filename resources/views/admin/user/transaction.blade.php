@@ -1,14 +1,11 @@
 <x-layouts.admin>
     <div class="w-full flex justify-between gap-2 p-4 items-center">
         <div>
-            <x-admin.title>List Transaksi</x-admin.title>
-            {{ Breadcrumbs::view('breadcrumbs::tailwind', Route::currentRouteName()) }}
+            <x-admin.title>List User</x-admin.title>
+            {{ Breadcrumbs::view('breadcrumbs::tailwind', Route::currentRouteName(), $user) }}
         </div>
-        <a href="{{ route('admin.transaction.users') }}" class="btn btn-primary text-lg fill-white">
-            <div class="flex justify-center items-center">
-                <p class="">Tambah</p>
-            </div>
-        </a>
+        <x-admin.user.bubble img="{{ $user->getFirstMediaUrl('image') }}" name="{{ $user->name }}"
+            phone="{{ $user->phone }}" />
     </div>
     <x-admin.form.search />
 

@@ -14,6 +14,7 @@ class BuyBack extends Model
         'status',
         'user_id',
         'total',
+        'total_sold',
         'buy_back_percentage_id',
     ];
 
@@ -25,5 +26,10 @@ class BuyBack extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function buyBackPercentage()
+    {
+        return $this->belongsTo(BuyBackPercentage::class);
     }
 }

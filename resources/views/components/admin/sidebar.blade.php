@@ -3,14 +3,14 @@
     <div class="drawer-content">
         <x-admin.nav />
 
-        <div class="py-6 px-2 md:px-4 lg:px-6">
+        <div class="pb-6 py-2 px-2 md:px-4 lg:px-6">
             {{ $slot }}
         </div>
     </div>
     <div class="drawer-side">
         <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
         <ul
-            class="menu gap-2 bg-base-100 text-base-content min-h-full w-80 p-4 text-lg font-bold border-r-2 border-r-gray-300">
+            class="menu gap-2 bg-emerald-600 text-base-content min-h-full w-80 p-4 text-lg font-bold  border-r-gray-300">
 
             <button class="btn btn-ghost text-2xl lg:hidden">Toko Jawahir</button>
             <hr class="border border-gray-400 shadow lg:hidden">
@@ -18,7 +18,11 @@
             <x-admin.sidebar.link>
                 <x-slot:href>{{ route('admin.dashboard') }}</x-slot:href>
                 <x-slot:icon>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="undefined"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="undefined">
+                        <path
+                            d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z" />
+                    </svg>
                 </x-slot:icon>
                 Dashboard
             </x-admin.sidebar.link>
@@ -55,6 +59,7 @@
                 Jual Kembali
             </x-admin.sidebar.link>
             <x-admin.sidebar.link>
+                <x-slot:href>{{ route('admin.user.index') }}</x-slot:href>
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="undefined">

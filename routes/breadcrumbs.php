@@ -69,3 +69,28 @@ Breadcrumbs::for('admin.buyback.create', function (BreadcrumbTrail $trail, $user
     $trail->parent('admin.buyback.users');
     $trail->push('Keranjang', route('admin.buyback.create', $user));
 });
+
+// Buyback Index > Buyback User > Create > Review
+Breadcrumbs::for('admin.buyback.review', function (BreadcrumbTrail $trail, $user, $buy_back) {
+    $trail->parent('admin.buyback.create', $user);
+    $trail->push('Review', route('admin.buyback.review', [$user, $buy_back]));
+});
+
+// ==================================================================================================================
+
+// User Index
+Breadcrumbs::for('admin.user.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Pengguna', route('admin.user.index'));
+});
+
+// User Index > User Transactions
+Breadcrumbs::for('admin.user.transactions', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('admin.user.index');
+    $trail->push('Transaksi', route('admin.user.transactions', $user));
+});
+
+// User Index > User Buybacks
+Breadcrumbs::for('admin.user.buybacks', function (BreadcrumbTrail $trail, $user) {
+    $trail->parent('admin.user.index');
+    $trail->push('Beli Kembali', route('admin.user.buybacks', $user));
+});

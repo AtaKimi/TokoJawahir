@@ -14,31 +14,20 @@ class CartBubble extends Component
 
     public $quantity = 0;
 
-    #[On('decrement')]
-    public function decrement($price)
-    {
-        $this->quantity--;
-        $this->total -= $price;
-    }
+    public $user;
 
-    #[On('increment')]
-    public function increment($price)
+    #[On('updateQuantityAndTotalBuyBack')]
+    public function updateQuantityAndTotal($quantity, $price)
     {
-        $this->quantity++;
+        $this->quantity += $quantity;
         $this->total += $price;
-    }
-
-    #[On('reduction')]
-    public function reduction($redacted_price, $reducted_quantity)
-    {
-        $this->total -= $redacted_price;
-        $this->quantity -= $reducted_quantity;
     }
 
     public function mount()
     {
         $this->total = $this->buy_back->buyBackDetails()->sum('total');
         $this->quantity = $this->buy_back->buyBackDetails()->sum('quantity');
+        // dd($this->total);
     }
 
 

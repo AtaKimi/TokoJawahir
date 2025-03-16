@@ -18,25 +18,11 @@ class TransactionBubble extends Component
 
     public $quantity;
 
-    #[On('decrement')]
-    public function decrement($price)
+    #[On('updateQuantityAndTotal')]
+    public function updateQuantityAndTotal($quantity, $price)
     {
-        $this->quantity--;
-        $this->total -= $price;
-    }
-
-    #[On('increment')]
-    public function increment($price)
-    {
-        $this->quantity++;
+        $this->quantity += $quantity;
         $this->total += $price;
-    }
-
-    #[On('reduction')]
-    public function reduction($redacted_price, $reducted_quantity)
-    {
-        $this->total -= $redacted_price;
-        $this->quantity -= $reducted_quantity;
     }
 
     public function mount()

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->enum('status', array_column(BuyBackStatus::cases(), 'value'))->default(BuyBackStatus::PENDING);
             $table->integer('total')->min(0)->default(0);
+            $table->integer('total_sold')->min(0)->default(0);
             $table->timestamps();
         });
     }

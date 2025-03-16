@@ -15,7 +15,11 @@ class TransactionSeeder extends Seeder
     public function run(): void
     {
         Transaction::factory(60)->sequence([
-            'user_id' => fn () => User::all()->random()->id
+            'user_id' => fn() => User::all()->random()->id
+        ])->create();
+
+        Transaction::factory(10)->sequence([
+            'user_id' => fn() => User::where('name', 'admin0')->first()->id
         ])->create();
     }
 }

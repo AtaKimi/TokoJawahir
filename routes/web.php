@@ -34,11 +34,21 @@ Route::prefix('admin')->group(function () {
         });
     });
 
-    Route::prefix('buyback')->group(function() {
-        Route::controller(App\Http\Controllers\Admin\BuyBackController::class)->group(function() {
+    Route::prefix('buyback')->group(function () {
+        Route::controller(App\Http\Controllers\Admin\BuyBackController::class)->group(function () {
             Route::get('/', 'index')->name('admin.buyback.index');
             Route::get('users/', 'users')->name('admin.buyback.users');
             Route::get('{user}/create', 'create')->name('admin.buyback.create');
+            Route::get('{user}/beli-kembali/{buy_back}/review', 'review')->name('admin.buyback.review');
+            Route::put('{user}/beli-kembali/{buy_back}/review', 'confirmation')->name('admin.buyback.confirmation');
+        });
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function () {
+            Route::get('/', 'index')->name('admin.user.index');
+            Route::get('/{user}/transactions', 'transactions')->name('admin.user.transactions');
+            Route::get('/{user}/buybacks', 'buyBacks')->name('admin.user.buybacks');
         });
     });
 });

@@ -3,3 +3,7 @@
 @tailwind utilities;
 
 @plugin "daisyui";
+
+.base-100 {
+    background-color: white;
+}

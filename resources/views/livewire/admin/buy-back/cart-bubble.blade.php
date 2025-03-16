@@ -1,4 +1,4 @@
-<a href=""
+<a href="{{ route('admin.buyback.review', [$user, $buy_back]) }}"
     class="fixed btn btn-success h-14 btn-wide bottom-3 right-5 ">
     <div class="flex items-center justify-between w-full gap-2">
         <div class="flex flex-col justify-start text-start w-full gap-2 text-white">

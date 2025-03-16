@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             BuyBackSeeder::class,
             BuyBackDetailSeeder::class,
 
-            // FileSeeder::class,
+            FileSeeder::class,
         ]);
     }
 }

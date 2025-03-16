@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enum\BuyBackStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TransactionDetail extends Model
@@ -16,6 +17,7 @@ class TransactionDetail extends Model
         'jewellery_id',
         'quantity',
         'total',
+        'quantity_sold',
     ];
 
     public function jewellery()
@@ -33,10 +35,10 @@ class TransactionDetail extends Model
         return $this->hasMany(BuyBackDetail::class);
     }
 
-    public function buyBackQuantityLeft(){
-        $buy_back_details = $this->buyBackDetails()->withWhereHas('buyBack', function ($query) {
-            return $query->where('status', '!=', BuyBackStatus::PENDING);
-        })->get();
-        return $this->quantity - $buy_back_details->sum('quantity');
+    protected function quantityLeft(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->quantity - $this->quantity_sold
+        );
     }
 }

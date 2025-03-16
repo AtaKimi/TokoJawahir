@@ -51,8 +51,16 @@ class TransactionController extends Controller
                 'status' => TransactionStatus::FAILED,
             ]);
         } else if ($validated['status'] == 'success') {
+
+            foreach ($transaction->transactionDetails as $transaction_detail) {
+                if ($transaction_detail->jewellery->quantity < $transaction_detail->quantity) {
+                    $transaction_detail->delete();
+                }
+            }
+
             $transaction->update([
                 'status' => TransactionStatus::SUCCESS,
+                'total' => $transaction->transactionDetails()->sum('total'),
             ]);
 
             foreach ($transaction->transactionDetails as $transaction_detail) {

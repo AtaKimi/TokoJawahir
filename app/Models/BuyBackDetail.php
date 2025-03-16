@@ -15,14 +15,17 @@ class BuyBackDetail extends Model
         'transaction_detail_id',
         'quantity',
         'total',
+        'total_sold',
     ];
 
-    
-    public function buyBack(){
+
+    public function buyBack()
+    {
         return $this->belongsTo(BuyBack::class);
     }
 
-    public function transactionDetail(){
+    public function transactionDetail()
+    {
         return $this->belongsTo(TransactionDetail::class);
     }
 }

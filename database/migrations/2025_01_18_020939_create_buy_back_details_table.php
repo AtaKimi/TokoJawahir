@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('transaction_detail_id')->constrained();
             $table->integer('quantity')->min(0)->default(0);
             $table->integer('total')->min(0)->default(0);
+            $table->integer('total_sold')->min(0)->default(0);
             $table->timestamps();
         });
     }

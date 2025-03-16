@@ -65,8 +65,7 @@
                             <form action="{{ route('admin.jewellery.destroy', $jewellery->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <button type=""
-                                    class="btn btn-ghost glass bg-red-500 text-white btn-sm">Hapus</button>
+                                <button type="" class="btn bg-red-500 text-white btn-sm">Hapus</button>
                             </form>
                         </th>
                     </tr>

@@ -20,12 +20,10 @@ class Transaction extends Component
 
     public function mount()
     {
-        if(TransactionModel::where('user_id', $this->user->id)->where('status', TransactionStatus::PENDING)->exists()) {
+        if (TransactionModel::where('user_id', $this->user->id)->where('status', TransactionStatus::PENDING)->exists()) {
             $this->transaction = TransactionModel::where('user_id', $this->user->id)->where('status', TransactionStatus::PENDING)->first();
-
-            
             foreach ($this->transaction->transactionDetails as $transaction_detail) {
-                if($transaction_detail->jewellery->quantity < $transaction_detail->quantity) {
+                if ($transaction_detail->jewellery->quantity < $transaction_detail->quantity) {
                     $transaction_detail->delete();
                 }
             }
@@ -34,8 +32,6 @@ class Transaction extends Component
                 'user_id' => $this->user->id
             ]);
         }
-
-
     }
 
     public function render()

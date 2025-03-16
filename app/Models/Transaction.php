@@ -26,4 +26,9 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
+
+    public function buyBackDetails()
+    {
+        return $this->hasMany(BuyBackDetail::class);
+    }
 }

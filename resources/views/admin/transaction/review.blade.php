@@ -4,18 +4,8 @@
             <x-admin.title>Review Pembelian</x-admin.title>
             {{ Breadcrumbs::view('breadcrumbs::tailwind', Route::currentRouteName(), $user, $transaction) }}
         </div>
-        <div class="flex items-center gap-3">
-            <div>
-                <div class="font-bold">Hart Hagerty</div>
-                <div class="text-sm opacity-50">United States</div>
-            </div>
-            <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12">
-                    <img src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                        alt="Avatar Tailwind CSS Component" />
-                </div>
-            </div>
-        </div>
+        <x-admin.user.bubble img="{{ $user->getFirstMediaUrl('image') }}" name="{{ $user->name }}"
+            phone="{{ $user->phone }}" />
     </div>
     <div class="overflow-x-auto">
         <table class="table">
@@ -61,7 +51,8 @@
                     <th colspan="1" class="text-center font-bold">
                         {{ $transaction->transactionDetails()->sum('quantity') }}</th>
                     <td colspan="2" class="text-center font-bold">
-                        {{ 'Rp. ' . number_format($transaction->transactionDetails()->sum('total'), 2, ',', '.') }}</td>
+                        {{ 'Rp. ' . number_format($transaction->transactionDetails()->sum('total'), 2, ',', '.') }}
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Transaction;
 use App\Models\User;
+use App\Models\BuyBack;
+use App\Enum\BuyBackStatus;
+use App\Models\Transaction;
+use App\Enum\TransactionStatus;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Eloquent\Factories\Sequence;
+use App\Models\TransactionDetail;
+
 
 class BuyBackSeeder extends Seeder
 {
@@ -16,36 +19,39 @@ class BuyBackSeeder extends Seeder
      */
     public function run(): void
     {
-        $user_exceptions = [];
+        $user = User::where('name', 'admin0')->first();
 
-        \App\Models\BuyBack::factory(10)->state(new Sequence(
-            fn(Sequence $sequence) => [
-                'user_id' => $this->getNewUser()->id,
-            ],
-        ))->create()->each(function ($buyBack) {
-            $transaction = \App\Models\Transaction::where('user_id', $buyBack->user_id)->inRandomOrder()->first();
-            foreach ($transaction->transactionDetails as $transaction_detail) {
-                if (fake()->boolean(80)) {
-                    $quantity = fake()->numberBetween(1, $transaction_detail->quantity);
-                    $buyBack->buyBackDetails()->save(
-                        \App\Models\BuyBackDetail::factory()->create(
-                            [
-                                'buy_back_id' => $buyBack->id,
-                                'transaction_detail_id' => $transaction_detail->id,
-                                'quantity' => $quantity,
-                                'total' => $transaction_detail->jewellery->price * $quantity,
-                            ]
-                        )
-                    );
-                }
+        $transactions = Transaction::where('user_id', $user->id)->where('status', TransactionStatus::SUCCESS)->get();
+
+        $transaction_details  = TransactionDetail::whereIn('transaction_id', $transactions->pluck('id')->toArray())->get();
+
+        $buy_backs = BuyBack::factory(3)->create([
+            'user_id' => $user->id,
+            'status' => BuyBackStatus::SUCCESS,
+        ]);
+
+        foreach ($transaction_details as $index => $transaction_detail) {
+            if (fake()->boolean()) {
+                $qty = fake()->numberBetween(1, $transaction_detail->quantity);
+                $buy_backs[$index % 3]->buyBackDetails()->create([
+                    'transaction_detail_id' => $transaction_detail->id,
+                    'quantity' => $qty,
+                    'total' => $qty * ($transaction_detail->total / $transaction_detail->quantity),
+                    'total_sold' => $qty * ($transaction_detail->total / $transaction_detail->quantity) - $qty * ($transaction_detail->total / $transaction_detail->quantity) * ($buy_backs[$index % 3]->buyBackPercentage->percentage / 100),
+                ]);
+
+                $transaction_detail->update([
+                    'quantity_sold' => $transaction_detail->quantity_sold + $qty,
+                ]);
             }
-        });
-    }
+        }
 
-    public function getNewUser()
-    {
-        $user = User::has('transactions')->whereNotIn('id', $this->user_exceptions)->inRandomOrder()->first();
-        $this->user_exceptions[] = $user->id;
-        return $user;
+        foreach ($buy_backs as $buy_back) {
+            $buy_back->update([
+                'status' => BuyBackStatus::SUCCESS,
+                'total' => $buy_back->buyBackDetails()->sum('total'),
+                'total' => $buy_back->buyBackDetails()->sum('total_sold'),
+            ]);
+        }
     }
 }
