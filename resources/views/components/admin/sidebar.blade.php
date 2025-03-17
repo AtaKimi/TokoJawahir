@@ -56,7 +56,7 @@
                         <path d="M360-240 120-480l240-240 56 56-144 144h488v-160h80v240H272l144 144-56 56Z" />
                     </svg>
                 </x-slot:icon>
-                Jual Kembali
+                Beli Kembali
             </x-admin.sidebar.link>
             <x-admin.sidebar.link>
                 <x-slot:href>{{ route('admin.user.index') }}</x-slot:href>
@@ -70,6 +70,7 @@
                 Pengguna
             </x-admin.sidebar.link>
             <x-admin.sidebar.link>
+                <x-slot:href>{{ route('user.profile.index') }}</x-slot:href>
                 <x-slot:icon>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                         fill="undefined">

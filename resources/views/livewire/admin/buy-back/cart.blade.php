@@ -44,6 +44,7 @@
             </tbody>
         </table>
     </div>
+
     <div class="mt-2">
     </div>
     <livewire:admin.buy-back.cart-bubble :buy_back="$buy_back" :user="$user" />

@@ -14,7 +14,7 @@ class BuyBackController extends Controller
     public function index()
     {
         $buy_backs = BuyBack::latest()->paginate(10);
-        return view('admin.buyback.index', compact('buybacks'));
+        return view('admin.buyback.index', compact('buy_backs'));
     }
 
     public function users()

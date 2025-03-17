@@ -52,3 +52,9 @@ Route::prefix('admin')->group(function () {
         });
     });
 });
+
+Route::prefix('user')->group(function () {
+    Route::controller(App\Http\Controllers\User\ProfileController::class)->group(function () {
+        Route::get('/', 'index')->name('user.profile.index');
+    });
+});

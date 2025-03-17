@@ -1,13 +1,12 @@
 <x-layouts.admin>
     <div class="w-full flex justify-between gap-2 p-4 items-center">
         <div>
-            <x-admin.title>List User</x-admin.title>
+            <x-admin.title>List Beli Kembali</x-admin.title>
             {{ Breadcrumbs::view('breadcrumbs::tailwind', Route::currentRouteName(), $user) }}
         </div>
         <x-admin.user.bubble img="{{ $user->getFirstMediaUrl('image') }}" name="{{ $user->name }}"
             phone="{{ $user->phone }}" />
     </div>
-    <x-admin.form.search />
 
     <div class="overflow-x-auto">
         <table class="table">

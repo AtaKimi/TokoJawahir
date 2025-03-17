@@ -94,3 +94,10 @@ Breadcrumbs::for('admin.user.buybacks', function (BreadcrumbTrail $trail, $user)
     $trail->parent('admin.user.index');
     $trail->push('Beli Kembali', route('admin.user.buybacks', $user));
 });
+
+// ==================================================================================================================
+
+// User Index
+Breadcrumbs::for('user.profile.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Profile', route('user.profile.index'));
+});

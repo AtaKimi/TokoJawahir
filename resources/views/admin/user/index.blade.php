@@ -4,11 +4,6 @@
             <x-admin.title>List User</x-admin.title>
             {{ Breadcrumbs::view('breadcrumbs::tailwind', Route::currentRouteName()) }}
         </div>
-        <a href="{{ route('admin.buyback.users') }}" class="btn btn-primary text-lg fill-white">
-            <div class="flex justify-center items-center">
-                <p class="">Tambah</p>
-            </div>
-        </a>
     </div>
     <x-admin.form.search />
 
