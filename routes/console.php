@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Jewellery;
+use App\Models\User;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 
@@ -8,8 +8,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-
 Artisan::command('testing', function () {
-    $jewellery = Jewellery::find(1);
-    dd($jewellery->getMedia('image')[0]->getUrl());
+    $user = User::find(3);
+    dump($user->getMedia('image'));
 });

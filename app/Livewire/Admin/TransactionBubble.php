@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class TransactionBubble extends Component
 {
-
     public TransactionModel $transaction;
 
     public User $user;

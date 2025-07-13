@@ -1,3 +1,3 @@
 <x-layouts.admin>
-    testing this
+    <h1>Selamat Datang di Dashboard Admin</h1>
 </x-layouts.admin>

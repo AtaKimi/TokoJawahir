@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class TransactionSeeder extends Seeder
 {
@@ -15,11 +14,11 @@ class TransactionSeeder extends Seeder
     public function run(): void
     {
         Transaction::factory(60)->sequence([
-            'user_id' => fn() => User::all()->random()->id
+            'user_id' => fn () => User::all()->random()->id,
         ])->create();
 
         Transaction::factory(10)->sequence([
-            'user_id' => fn() => User::where('name', 'admin0')->first()->id
+            'user_id' => fn () => User::where('name', 'customer1')->first()->id,
         ])->create();
     }
 }

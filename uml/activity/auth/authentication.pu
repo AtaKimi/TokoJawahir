@@ -1,0 +1,58 @@
+@startuml
+start
+
+partition "User Interface" {
+  :View Home Page;
+  if (Click "Login"?) then (True)
+    :Display Login Form;
+    :Input User Data;
+    :Submit Form;
+  elseif (Click "Register"?) then (True)
+    :Display Registration Form;
+    :Input User Data;
+    :Submit Form;
+  else (False)
+    stop
+  endif
+}
+
+partition "Backend" {
+  if ("Login Request" received?) then (True)
+    :Validate User Data;
+    if (Validation Status?) then (True)
+        :Authenticate User;
+        :Manage Session/Token;
+        :Return Login Status;
+    else (False)
+      :Return Error Message;
+      stop
+    endif
+  elseif ("Registration Request" received?) then (True)
+    :Validate User Data;
+    if (Validation Status?) then (True)
+        :Validate Data & Create User;
+        :Save User to Database;
+        :Return Registration Status;
+    else (False)
+      :Return Error Message;
+      stop
+    endif
+  else (False)
+    stop
+  endif
+
+  if("User Has Admin Role?") then (True)
+    :Redirect to Admin Interface;
+  else (False)
+    :Redirect to Guest Interface;
+  endif
+
+  if ("Logout Request" received?) then (True)
+    :Destroy Session/Token;
+    :Return Logout Status;
+    :Redirect to Home Page;
+    stop
+  else (False)
+    stop
+  endif
+}

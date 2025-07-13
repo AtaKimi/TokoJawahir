@@ -25,7 +25,7 @@ class BuyBackDetailFactory extends Factory
     {
         return $this->afterMaking(function ($buy_back_detail) {
             $buy_back = $buy_back_detail->buyBack;
-            $buy_back->total = $buy_back->buyBackDetails()->sum('total'); 
+            $buy_back->total = $buy_back->buyBackDetails()->sum('total');
             $buy_back->save();
         });
     }

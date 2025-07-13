@@ -74,7 +74,10 @@
                         <p class="text-red-500 text-sm ps-2">{{ $message }}</p>
                     @enderror
                 </div>
-                <button class="w-full btn btn-primary text-xl tracking-wide">Login</button>
+                <div class="flex flex-col gap-2">
+                    <button class="w-full btn btn-primary text-xl tracking-wide">Register</button>
+                    <a class="text-blue-500" href="{{ route('login') }}">Apakah kamu sudah punya akun?</a>
+                </div>
             </div>
         </form>
 

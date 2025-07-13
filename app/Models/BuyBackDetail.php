@@ -18,7 +18,6 @@ class BuyBackDetail extends Model
         'total_sold',
     ];
 
-
     public function buyBack()
     {
         return $this->belongsTo(BuyBack::class);

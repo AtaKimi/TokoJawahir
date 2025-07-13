@@ -1,0 +1,31 @@
+Example (Tests\Feature\Example)
+ [x] The application returns a successful response
+
+Example (Tests\Unit\Example)
+ [x] That true is true
+
+Login (Tests\Feature\Auth\Login)
+ [x] Login screen can be rendered
+ [x] Users can authenticate using the login screen
+ [x] Users can not authenticate with invalid password
+ [x] Users can not authenticate with invalid email
+ [x] Login screen validation
+ [x] Redirect to intended url after login
+ [x] User can logout
+
+Update (Tests\Feature\User\profile\Update)
+ [x] User can update profile
+ [x] User cannot update profile with invalid data
+ [x] Unauthenticated user cannot update profile
+ [x] User can update profile with max length fields
+ [x] User cannot update profile name email over max length
+
+Update Photo (Tests\Feature\User\profile\UpdatePhoto)
+ [x] User can update photo profile
+ [x] User can replace existing photo profile
+ [x] User cannot update photo profile with invalid data
+ [x] Unauthenticated user cannot update photo profile
+ [x] User cannot upload image over max size
+ [x] User cannot upload non image file
+ [x] User can update photo profile with valid image types
+

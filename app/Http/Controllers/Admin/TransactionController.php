@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enum\TransactionStatus;
-use App\Models\User;
-use App\Models\Transaction;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class TransactionController extends Controller
@@ -14,16 +13,18 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = Transaction::whereHas('user', function ($query) {
-            $query->where('name', 'like', '%' . request()->query('search') . '%');
+            $query->where('name', 'like', '%'.request()->query('search').'%');
         })->latest()->paginate(10);
 
         return view('admin.transaction.index', compact('transactions'));
     }
+
     public function users()
     {
         $users = User::latest()->filterByName(request()->query())->with(['transactions' => function (Builder $query) {
             $query->where('status', '=', TransactionStatus::PENDING);
         }])->paginate(10);
+
         return view('admin.transaction.users', compact('users'));
     }
 
@@ -37,6 +38,7 @@ class TransactionController extends Controller
         $transaction->update([
             'total' => $transaction->transactionDetails->sum('total'),
         ]);
+
         return view('admin.transaction.review', compact('user', 'transaction'));
     }
 
@@ -50,12 +52,19 @@ class TransactionController extends Controller
             $transaction->update([
                 'status' => TransactionStatus::FAILED,
             ]);
-        } else if ($validated['status'] == 'success') {
+        } elseif ($validated['status'] == 'success') {
 
             foreach ($transaction->transactionDetails as $transaction_detail) {
                 if ($transaction_detail->jewellery->quantity < $transaction_detail->quantity) {
                     $transaction_detail->delete();
+                    $transaction->refresh();
                 }
+            }
+
+            if ($transaction->transactionDetails()->count() == 0) {
+                $transaction->delete();
+
+                return redirect()->route('admin.transaction.index');
             }
 
             $transaction->update([
@@ -70,6 +79,7 @@ class TransactionController extends Controller
                 ]);
             }
         }
+
         return redirect()->route('admin.transaction.index');
     }
 }

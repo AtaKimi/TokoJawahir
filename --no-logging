@@ -1,0 +1,4 @@
+[00:00:00.013304800 / 00:00:00.013304800] [8388608 bytes] PHPUnit Started (PHPUnit 11.5.2 using PHP 8.4.2 (cli) on WINNT)
+[00:00:00.073039700 / 00:00:00.059734900] [8388608 bytes] Test Runner Configured
+[00:00:00.075745800 / 00:00:00.002706100] [8388608 bytes] Bootstrap Finished (C:\laragon\www\TokoJawahir\vendor/autoload.php)
+[00:00:00.320975700 / 00:00:00.245229900] [8388608 bytes] Event Facade Sealed

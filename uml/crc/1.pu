@@ -1,0 +1,187 @@
+@startuml
+skinparam backgroundColor #EEE
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam stereotypeCBackgroundColor LightBlue
+skinparam packageStyle rect
+
+package "CRC Cards" {
+  object "Buyer" as Buyer <<Model>> {
+    --
+    Responsibilities:
+    --
+    - Initiates viewing jewelry list
+    - Initiates viewing jewelry details
+    - Provides registration info
+    - Provides login credentials
+    - Provides profile edit info
+    --
+    Collaborations:
+    --
+    - JewelryController
+    - RegistrationController
+    - AuthController
+    - ProfileController
+  }
+
+  object "Seller" as Seller <<Model>> {
+    --
+    Responsibilities:
+    --
+    - Logs into the systems jewelry info
+    - Adds jewelry info
+    - Edits jewelry info
+    - Deletes jewelry info
+    - Edits shop profile
+    --
+    Collaborations:
+    --
+    - JewelryController
+    - RegistrationController
+    - AuthController
+    - ProfileController
+    - StoreController
+  }
+
+  object "JewelryController" as JewelleryController {
+    --
+    Responsibilities:
+    --
+    - Handles view list requests
+    - Retrieves jewelry data
+    - Formats list for UI
+    - Handles view details requests
+    - Retrieves specific jewelry data
+    - Formats details for UI
+    - Handles view/add/edit/delete jewelry
+    - Retrieves seller's jewelry data
+    - Validates input
+    - Creates/Updates/Deletes records
+    --
+    Collaborations:
+    --
+    - Jewelry (Model)
+  }
+
+  object "RegistrationController" as RegCtrl {
+    --
+    Responsibilities:
+    --
+    - Handles registration requests
+    - Validates registration data
+    - Creates new user record
+    --
+    Collaborations:
+    --
+    - User (Model)
+  }
+
+  object "AuthController" as AuthCtrl {
+    --
+    Responsibilities:
+    --
+    - Handles login requests
+    - Authenticates user
+    - Manages user sessions
+    --
+    Collaborations:
+    --
+    - User (Model)
+    - Session
+  }
+
+  object "ProfileController" as ProfileCtrl {
+    --
+    Responsibilities:
+    --
+    - Handles profile view/edit requests
+    - Retrieves profile data
+    - Updates profile info
+    - Validates profile updates
+    --
+    Collaborations:
+    --
+    - User (Model)
+  }
+
+
+  object "StoreController" as StoreController {
+    --
+    Responsibilities:
+    --
+    - Handles shop profile view/edit
+    - Retrieves shop data
+    - Updates shop info
+    - Validates shop updates
+    --
+    Collaborations:
+    --
+    - Store (Model)
+  }
+
+  object "Jewelry" as JewelryModel <<Model>> {
+    --
+    Responsibilities:
+    --
+    - Represents jewelry data
+    - Access/manipulate jewelry records
+    --
+    Collaborations:
+    --
+    - Database
+  }
+
+  object "User" as UserModel <<Model>> {
+    --
+    Responsibilities:
+    --
+    - Represents user data
+    - Access/manipulate user records
+    - Handles password management
+    --
+    Collaborations:
+    --
+    - Seller (Model)
+    - Buyer (Model)
+    - ProfileController
+    - RegistrationController
+    - AuthController
+  }
+
+  object "Store" as StoreModel <<Model>> {
+    --
+    Responsibilities:
+    --
+    - Represents shop profile data
+    - Access/manipulate shop records
+    --
+    Collaborations:
+    --
+    - Database
+    - Seller (Model)
+  }
+
+  Buyer -- JewelleryController
+  Buyer -- RegCtrl
+  Buyer -- AuthCtrl
+  Buyer -- ProfileCtrl
+
+  Seller -- JewelleryController
+  Seller -- RegCtrl
+  Seller -- AuthCtrl
+  Seller -- ProfileCtrl
+  Seller -- StoreController
+
+  JewelleryController -- JewelryModel
+
+  RegCtrl -- UserModel
+
+  AuthCtrl -- UserModel
+  AuthCtrl -- Session
+
+  ProfileCtrl -- UserModel
+
+
+  StoreController -- StoreModel
+}
+@enduml

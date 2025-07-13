@@ -1,0 +1,58 @@
+@startuml
+start
+
+partition "Admin Interface" {
+  :View Jewellery List;
+  if (Click "Create New") then (Yes)
+    :Display Create Jewellery Form;
+    :Input Jewellery Details;
+    :Upload Image (Optional);
+    :Submit Form (Create);
+  elseif (Select Jewellery to Edit) then (Yes)
+    :Display Edit Jewellery Form with Data;
+    :Modify Jewellery Details;
+    :Upload New Image (Optional);
+    :Submit Form (Update);
+  elseif (Select Jewellery to Delete) then (Yes)
+    :Confirm Deletion;
+    :Submit Deletion;
+  else (No Action)
+    stop
+  endif
+}
+
+partition "Backend" {
+  if ("Store Jewellery Request" received?) then (Yes)
+    :Validate Input Data;
+    if (Validated?) then (False)
+      :Return Errors to Admin Interface;
+      kill
+    else (True)
+      :Create New Jewellery Record;
+      :Store Image File;
+    endif
+  elseif ("Update Jewellery Request" received?) then (Yes)
+    :Validate Input Data;
+    if (Validated?) then (False)
+      :Return Errors to Admin Interface;
+      kill
+    else (True)
+      :Update Jewellery Record;
+      if (Request has New Image?) then (Yes)
+        :Remove Old Image;
+        :Store New Image File;
+      endif
+    endif
+    elseif ("Delete Jewellery Request" received?) then (Yes)
+    :Delete Jewellery Record;
+    :Remove Associated Image File;
+   else (False)
+    stop
+   endif
+    :Redirect to Jewellery List;
+}
+
+
+
+stop
+@enduml

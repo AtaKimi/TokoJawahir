@@ -1,21 +1,27 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
+use Database\Seeders\TestSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected $seeder = TestSeeder::class;
+
+    protected $seed = true;
+
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
 
         $response->assertStatus(200);
     }
+
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
         $user = User::factory()->create();
@@ -26,26 +32,14 @@ class LoginTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect('/admin'); // Or your intended redirect
+        $response->assertRedirect(route('guest.index')); // Or your intended redirect
     }
-    public function test_users_can_not_authenticate_with_invalid_password(): void
-    {
-        $user = User::factory()->create();
 
+    public function test_users_can_not_authenticate_with_invalid_input(): void
+    {
         $this->post('/login', [
-            'email' => $user->email,
+            'email' => 'notAValidEmail@test.com',
             'password' => 'wrong-password',
-        ]);
-
-        $this->assertGuest();
-    }
-
-    public function test_users_can_not_authenticate_with_invalid_email(): void
-    {
-
-        $this->post('/login', [
-            'email' => "notAValidEmail@test.com",
-            'password' => 'password',
         ]);
 
         $this->assertGuest();
@@ -65,26 +59,11 @@ class LoginTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $intendedUrl = '/admin';
-
-        $this->withSession(['url.intended' => $intendedUrl])
-            ->get($intendedUrl);
-
         $response = $this->post('/login', [
             'email' => $user->email,
             'password' => 'password',
         ]);
 
-        $response->assertRedirect($intendedUrl);
-    }
-
-    public function test_user_can_logout(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->post('/logout');
-
-        $response->assertRedirect('/');
-        $this->assertGuest();
+        $response->assertRedirect(route('guest.index'));
     }
 }

@@ -10,6 +10,10 @@ class BuyBackPercentage extends Model
     /** @use HasFactory<\Database\Factories\BuyBackPercentageFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'percentage',
+    ];
+
     public function buyBacks()
     {
         return $this->hasMany(BuyBack::class);

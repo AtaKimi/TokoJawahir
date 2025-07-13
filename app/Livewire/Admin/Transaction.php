@@ -2,17 +2,17 @@
 
 namespace App\Livewire\Admin;
 
+use App\Enum\TransactionStatus;
+use App\Models\Jewellery;
+use App\Models\Transaction as TransactionModel;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Jewellery;
-use Livewire\WithPagination;
-use App\Enum\TransactionStatus;
 use Livewire\WithoutUrlPagination;
-use App\Models\Transaction as TransactionModel;
+use Livewire\WithPagination;
 
 class Transaction extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithoutUrlPagination, WithPagination;
 
     public TransactionModel $transaction;
 
@@ -29,7 +29,7 @@ class Transaction extends Component
             }
         } else {
             $this->transaction = TransactionModel::create([
-                'user_id' => $this->user->id
+                'user_id' => $this->user->id,
             ]);
         }
     }

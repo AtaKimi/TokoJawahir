@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Actions\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BuyBack extends Model
 {
     /** @use HasFactory<\Database\Factories\BuyBackFactory> */
-    use HasFactory;
+    use HasFactory, HasFilter;
 
     protected $fillable = [
         'status',
@@ -16,6 +17,7 @@ class BuyBack extends Model
         'total',
         'total_sold',
         'buy_back_percentage_id',
+        'total_reduction',
     ];
 
     public function buyBackDetails()

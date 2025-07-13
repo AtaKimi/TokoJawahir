@@ -2,7 +2,8 @@
 
 namespace App\Actions\Traits;
 
-trait HasFilter {
+trait HasFilter
+{
     public function scopeFilterByName($query, array $params)
     {
         if (@$params['search']) {
@@ -28,6 +29,13 @@ trait HasFilter {
     {
         if (@$params['search']) {
             $query->where('code', 'like', "%{$params['search']}%");
+        }
+    }
+
+    public function scopeFIlterbyNameOrPhone($query, array $params)
+    {
+        if (@$params['search']) {
+            $query->where('name', 'like', "%{$params['search']}%")->orWhere('phone', 'like', "%{$params['search']}%");
         }
     }
 }

@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Jewellery;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class FileSeeder extends Seeder
 {
@@ -30,7 +29,7 @@ class FileSeeder extends Seeder
         $users = User::all();
 
         foreach ($users as $user) {
-             $user->addMediaFromUrl('https://picsum.photos/200/300')->toMediaCollection('image');
+            $user->addMediaFromUrl('https://picsum.photos/200/300')->toMediaCollection('image');
         }
     }
 }

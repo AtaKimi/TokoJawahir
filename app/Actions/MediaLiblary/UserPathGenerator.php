@@ -2,8 +2,8 @@
 
 namespace App\Actions\MediaLiblary;
 
-use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
 class UserPathGenerator implements PathGenerator
 {
@@ -14,12 +14,12 @@ class UserPathGenerator implements PathGenerator
 
     public function getPathForConversions(Media $media): string
     {
-        return $this->getBasePath($media) . 'conversions/';
+        return $this->getBasePath($media).'conversions/';
     }
 
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getBasePath($media) . 'responsive-images/';
+        return $this->getBasePath($media).'responsive-images/';
     }
 
     public function getBasePath(Media $media): string
@@ -27,7 +27,7 @@ class UserPathGenerator implements PathGenerator
         $prefix = config('media-library.prefix', '');
 
         if ($prefix !== '') {
-            return $prefix.'/'. 'users/' . $media->getKey() . '/';
+            return $prefix.'/'.'users/'.$media->getKey().'/';
         }
     }
 }

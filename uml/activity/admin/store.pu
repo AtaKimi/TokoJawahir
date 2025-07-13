@@ -1,0 +1,39 @@
+@startuml
+start
+
+partition "Admin Interface" {
+  :View Store Settings Page;
+  if (Click "Edit Store Info") then (Yes)
+    :Display Edit Store Info Form;
+    :Modify Store Details;
+    :Submit Changes (Store Info);
+  elseif (Input New Buy-Back Percentage) then (Yes)
+    :Submit New Percentage;
+  else (No Action)
+    stop
+  endif
+}
+
+partition "Backend" {
+  if ("Update Store Info Request" received?) then (Yes)
+    :Validate Store Info Input;
+    if (Validation Status?) then (False)
+      :Return Errors to Admin Interface;
+      kill
+    else (True)
+      :Update Store Data;
+    endif
+  elseif ("Update Buy-Back Percentage Request" received?) then (Yes)
+    :Validate Buy-Back Percentage Input;
+    if (Validation Status?) then (False)
+      :Return Errors to Admin Interface;
+      kill
+    else (True)
+      :Create New Buy-Back Percentage Record;
+    endif
+  endif
+  :Redirect to Store Settings Page;
+}
+
+stop
+@enduml

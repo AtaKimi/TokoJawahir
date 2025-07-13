@@ -19,7 +19,7 @@ class JewelleryFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'price' => $this->faker->numberBetween(100,10000) * 1000,
+            'price' => $this->faker->numberBetween(100, 10000) * 1000,
             'quantity' => $this->faker->numberBetween(1, 10),
         ];
     }

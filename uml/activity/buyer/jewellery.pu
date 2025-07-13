@@ -1,0 +1,40 @@
+@startuml
+start
+
+partition "Guest Interface" {
+  :View Jewellery Catalog Page;
+  if (Search for Jewellery) then (Yes)
+    :Input Search Term;
+    :Submit Search;
+  elseif (Click on Jewellery Item) then (Yes)
+    :Request Jewellery Details;
+  else (No Action)
+    
+  endif
+}
+
+partition "Backend" {
+  if ("Request without search" received?) then (Yes)
+    :Query Database for Available Jewelleries;
+    :Paginate Results;
+    :Prepare Data for View;
+    :Return Jewellery List to Guest Interface;
+    stop
+  elseif ("Request with search" received?) then (Yes)
+    :Get Search Term from Request;
+    :Query Database for Available Jewelleries with Filter;
+    :Paginate Filtered Results;
+    :Prepare Data for View;
+    :Return Filtered Jewellery List to Guest Interface;
+    stop
+  elseif ("Request Jewellery details" received?) then (Yes)
+    :Get Jewellery ID from Request;
+    :Retrieve Specific Jewellery Data from Database;
+    :Prepare Data for View;
+    :Return Jewellery Details to Guest Interface;
+    stop
+  else (No Action)
+    stop
+  endif
+}
+@enduml

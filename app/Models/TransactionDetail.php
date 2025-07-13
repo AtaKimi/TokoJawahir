@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Enum\BuyBackStatus;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class TransactionDetail extends Model
 {
@@ -38,7 +37,7 @@ class TransactionDetail extends Model
     protected function quantityLeft(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->quantity - $this->quantity_sold
+            get: fn () => $this->quantity - $this->quantity_sold
         );
     }
 }

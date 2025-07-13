@@ -16,7 +16,6 @@ class Transaction extends Model
         'total',
     ];
 
-
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -1,9 +1,8 @@
 <?php
 
-use App\Models\Jewellery;
-use Illuminate\Support\Facades\App;
 use App\Actions\MediaLiblary\JewelleriesPathGenerator;
 use App\Actions\MediaLiblary\UserPathGenerator;
+use App\Models\Jewellery;
 use App\Models\User;
 
 return [
@@ -150,7 +149,7 @@ return [
             '-m 6', // for the slowest compression method in order to get the best compression.
             '-pass 10', // for maximizing the amount of analysis pass.
             '-mt', // multithreading for some speed improvements.
-            '-q 90', //quality factor that brings the least noticeable changes.
+            '-q 90', // quality factor that brings the least noticeable changes.
         ],
         Spatie\ImageOptimizer\Optimizers\Avifenc::class => [
             '-a cq-level=23', // constant quality level, lower values mean better quality and greater file size (0-63).

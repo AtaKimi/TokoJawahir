@@ -2,12 +2,11 @@
 
 namespace App\Livewire\Admin\BuyBack;
 
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class CartBubble extends Component
 {
-
     public $buy_back;
 
     public $total = 0;
@@ -29,7 +28,6 @@ class CartBubble extends Component
         $this->quantity = $this->buy_back->buyBackDetails()->sum('quantity');
         // dd($this->total);
     }
-
 
     public function render()
     {

@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum BuyBackStatus: String
+enum BuyBackStatus: string
 {
     case PENDING = 'pending';
     case SUCCESS = 'success';

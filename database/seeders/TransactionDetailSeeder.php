@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enum\TransactionStatus;
 use App\Models\Jewellery;
 use App\Models\Transaction;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TransactionDetailSeeder extends Seeder

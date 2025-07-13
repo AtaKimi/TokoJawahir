@@ -1,0 +1,132 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+' Define the Classes (Database Tables)'
+
+' Users table (from second snippet)'
+class Users {
+  + id : bigint <<PK>>
+  --
+  + name : string
+  + email : string
+  + email_verified_at : timestamp [0..1]
+  + password : string
+  + address : string [0..1]
+  + phone : string [0..1]
+  + is_admin : boolean
+  + remember_token : string [0..1]
+  --
+  + created_at : timestamp
+  + + updated_at : timestamp
+}
+
+' Sessions table (from second snippet)'
+class Sessions {
+  + id : string <<PK>>
+  --
+  + user_id : bigint [0..1] <<FK>>
+  + ip_address : string [0..1]
+  + user_agent : text [0..1]
+  + payload : longText
+  + last_activity : integer
+}
+
+' Jewelleries table (from second snippet)'
+class Jewelleries {
+  + id : bigint <<PK>>
+  --
+  + name : string
+  + description : text [0..1]
+  + price : integer
+  + quantity : integer
+  --
+  + created_at : timestamp
+  + updated_at : timestamp
+}
+
+' Stores table (from second snippet)'
+class Stores {
+  + id : bigint <<PK>>
+  --
+  + name : string
+  + address : string [0..1]
+  + phone : string [0..1]
+  + email : string [0..1]
+  --
+  + created_at : timestamp
+  + updated_at : timestamp
+}
+
+
+' Media table (from first snippet)'
+class Media {
+  + id : bigint <<PK>>
+  --
+  + model_type : string
+  + model_id : bigint
+  + uuid : string [0..1] <<unique>>
+  + collection_name : string
+  + name : string
+  + file_name : string
+  + mime_type : string [0..1]
+  + disk : string
+  + conversions_disk : string [0..1]
+  + size : bigint
+  + manipulations : json
+  + custom_properties : json
+  + generated_conversions : json
+  + responsive_images : json
+  + order_column : int [0..1] <<index>>
+  --
+  + created_at : timestamp [0..1]
+  + updated_at : timestamp [0..1]
+}
+
+' Transaction table (from first snippet)'
+class Transaction {
+  + id : bigint <<PK>>
+  --
+  + user_id : bigint <<FK>>
+  + status : enum
+  + total : int
+  --
+  + created_at : timestamp
+  + updated_at : timestamp
+}
+
+' Transaction Details table (from first snippet)'
+class TransactionDetail {
+  + id : bigint <<PK>>
+  --
+  + transaction_id : bigint <<FK>>
+  + jewellery_id : bigint <<FK>>
+  + quantity : int
+  + total : int
+  + quantity_sold : int
+  --
+  + created_at : timestamp
+  + updated_at : timestamp
+}
+
+
+' Define the Relationships'
+
+' Users has many Sessions'
+Users "1" -- "0..*" Sessions : user_id
+
+' Users has many Transactions'
+Users "1" -- "*" Transaction : user_id
+
+' Transaction has many Transaction Details'
+Transaction "1" -- "*" TransactionDetail : transaction_id
+
+' Jewelleries item can be in many Transaction Details'
+Jewelleries "1" -- "*" TransactionDetail : jewellery_id
+
+' Note on Media'
+' note "Media is polymorphically linked\nvia model_type and model_id" as MediaNote
+' Media .. MediaNote ' Optional: Link note to Media class'
+
+
+@enduml

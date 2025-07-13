@@ -1,0 +1,144 @@
+@startuml
+' Set diagram direction from left to right
+left to right direction
+
+' Define actors in the system
+actor "Buyer"
+actor "Seller"
+
+' Define the system boundary for User & Shop Management
+rectangle "User & Shop Management" {
+    ' Package for Authentication related use cases
+    package "Authentication" {
+        ' Use case for user registration
+        usecase "Register Account" as UC_Register
+        ' Use case for user login
+        usecase "Login" as UC_Login
+    }
+
+    ' Package for User and Shop profile management use cases
+    package "User and Shop Management" {
+        ' Use case for editing user profile
+        usecase "Edit Profile" as UC_EditProfile
+        ' Use case for editing shop profile (likely for Seller)
+        usecase "Edit Shop Profile" as UC_EditShopProfile
+    }
+}
+
+' Define the system boundary for Buyer specific actions
+rectangle "Buyer Section" {
+    ' Package for Jewellery viewing use cases for Buyer
+    package "Jewellery Buyer" {
+        ' Use case for viewing the list of jewelry
+        usecase "View Jewelry List" as UC_ViewList
+        ' Use case for viewing details of a specific jewelry item
+        usecase "View Jewelry Details" as UC_ViewDetails
+    }
+
+    ' Package for Buyer's transaction history use cases
+    package "Transaction Buyer" {
+        ' Use case for viewing the buyer's transaction history
+        usecase "View Transaction History" as UC_TransactionHistory
+    }
+
+    ' Package for Buyer's buyback (beli kembali) use cases (Iteration 3)
+    package "Buyback Buyer" {
+        ' Use case for viewing the list of previous buyback transactions for the buyer
+        usecase "View Buyback List" as UC_ViewBuybackListForBuyer
+        ' Use case for viewing details of a specific buyback transaction for the buyer
+        usecase "View Buyback Details" as UC_ViewBuybackDetailsForBuyer
+    }
+}
+
+' Define the system boundary for Seller specific actions
+rectangle "Seller Section" {
+    ' Package for Jewellery management use cases for Seller
+    package "Jewellery Seller" {
+        ' Use case for viewing information about jewelry (their own stock)
+        usecase "View Jewelry Information" as UC_ViewInfo
+        ' Use case for adding new jewelry information (to their stock)
+        usecase "Add Jewelry Information" as UC_AddInfo
+        ' Use case for editing existing jewelry information
+        usecase "Edit Jewelry Information" as UC_EditInfo
+        ' Use case for deleting jewelry information
+        usecase "Delete Jewelry Information" as UC_DeleteInfo
+    }
+
+    ' Package for Seller's transaction related use cases
+    package "Transaction Seller" {
+        ' Use case for viewing the history of orders made by buyers
+        usecase "View Order History" as UC_BuyerHistory
+        ' Use case for adding an item to a (seller-managed?) cart - potentially for creating a new order/transaction
+        usecase "Add Item to Cart" as UC_SellerAddItem
+        ' Use case for editing an item in the (seller-managed?) cart
+        usecase "Edit Item in Cart" as UC_SellerEditItem
+        ' Use case for removing an item from the (seller-managed?) cart
+        usecase "Remove Item from Cart" as UC_SellerDeleteItem
+        ' Use case for viewing the contents of the (seller-managed?) cart
+        usecase "View Cart Contents" as UC_SellerViewCart
+        ' Use case for confirming a transaction (based on the cart)
+        usecase "Confirm Transaction" as UC_SellerConfirm
+        ' Use case for viewing orders placed by buyers (similar to View Order History?)
+        usecase "View Buyer Orders" as UC_SellerViewOrders
+    }
+
+    ' Package for Seller's buyback (beli kembali) use cases (Iteration 3)
+    package "Buyback Seller" {
+        usecase "View Users list for buyback" as UC_ViewBuybackListForSeller
+        usecase "View Add or Edit Buyback Items" as UC_ViewEditBuybackItem
+        usecase "View Buyback Confirmation" as UC_ViewBuybackConfirmation
+        usecase "View Buyback List" as UC_ViewBuybackListForSeller
+        usecase "View Buyback Details" as UC_ViewBuybackDetailsForSeller
+    }
+}
+
+' Define relationships between actors and use cases
+
+' Buyer relationships
+"Buyer" -- UC_Register
+"Buyer" -- UC_Login
+"Buyer" -- UC_EditProfile
+UC_ViewList -- "Buyer"
+UC_ViewDetails -- "Buyer"
+UC_TransactionHistory -- "Buyer"
+UC_ViewBuybackListForBuyer -- "Buyer"
+UC_ViewBuybackDetailsForBuyer -- "Buyer"
+
+' Seller relationships
+UC_Login -- "Seller"
+UC_EditProfile -- "Seller"
+UC_EditShopProfile -- "Seller"
+"Seller" -- UC_AddInfo
+"Seller" -- UC_EditInfo
+"Seller" -- UC_DeleteInfo
+"Seller" -- UC_SellerAddItem
+"Seller" -- UC_ViewInfo
+"Seller" -- UC_SellerEditItem
+"Seller" -- UC_SellerDeleteItem
+"Seller" -- UC_SellerViewCart
+"Seller" -- UC_SellerConfirm
+"Seller" -- UC_SellerViewOrders
+
+' Seller Buyback relationships
+"Seller" -- UC_ViewEditBuybackItem
+"Seller" -- UC_ViewBuybackConfirmation
+"Seller" -- UC_ViewBuybackListForSeller
+"Seller" -- UC_ViewBuybackDetailsForSeller
+
+
+' Define relationships between use cases
+
+' Extends relationship: Register extends Login (meaning registration might reuse login functionality or lead to login)
+UC_Register .> UC_Login : extends
+' Include relationship: Confirm Transaction includes View Cart Contents (viewing cart is part of confirming)
+UC_SellerConfirm .> UC_SellerViewCart : include
+' Include relationship: Access Customer Order Details includes Access Customer Orders by Phone (need to list orders first)
+' UC_AccessCustomerOrderDetails .> UC_AccessCustomerOrders : include
+' Include relationship: Buyback Items includes Access Customer Order Details (need order details to buyback)
+' UC_BuybackItems .> UC_AccessOrderDetails : include
+' Include relationship: View/Edit Buyback Price includes Buyback Items (price is determined during buyback)
+' UC_ViewEditBuybackPrice .> UC_BuybackItems : include
+
+
+' End of the diagram definition
+@enduml

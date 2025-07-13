@@ -1,0 +1,34 @@
+@startuml
+left to right direction
+actor "Buyer" as Buyer
+actor "Seller" as Seller
+rectangle {
+  package "Jewelry" {
+    (View Jewelry List) -- Buyer
+    (View Jewelry Details) -- Buyer
+  }
+}
+
+rectangle {
+  (Register Account) .> (Login) : extends
+  Buyer -- (Register Account)
+  Buyer -- (Login)
+  (Login) -- Seller
+  (Edit Profile) -- Seller
+  Buyer -- (Edit Profile)
+}
+
+  rectangle {
+    package "Jewellery" {
+      Seller -- (View Jewelry Information)
+      Seller -- (Add Jewelry Information)
+      Seller -- (Edit Jewelry Information)
+      Seller -- (Delete Jewelry Information)
+    }
+    package "Toko" {
+      Seller -- (Edit Shop Profile)
+    }
+  }
+
+@enduml
+

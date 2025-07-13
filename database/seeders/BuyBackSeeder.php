@@ -2,28 +2,28 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\BuyBack;
 use App\Enum\BuyBackStatus;
-use App\Models\Transaction;
 use App\Enum\TransactionStatus;
-use Illuminate\Database\Seeder;
+use App\Models\BuyBack;
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
-
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class BuyBackSeeder extends Seeder
 {
     public $user_exceptions = [];
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $user = User::where('name', 'admin0')->first();
+        $user = User::where('name', 'customer1')->first();
 
         $transactions = Transaction::where('user_id', $user->id)->where('status', TransactionStatus::SUCCESS)->get();
 
-        $transaction_details  = TransactionDetail::whereIn('transaction_id', $transactions->pluck('id')->toArray())->get();
+        $transaction_details = TransactionDetail::whereIn('transaction_id', $transactions->pluck('id')->toArray())->get();
 
         $buy_backs = BuyBack::factory(3)->create([
             'user_id' => $user->id,

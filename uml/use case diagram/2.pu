@@ -1,0 +1,79 @@
+@startuml
+left to right direction
+
+actor "Buyer"
+actor "Seller"
+
+
+' User Authentication and Profile (from Code 1)'
+rectangle "User & Shop Management" {
+    package "Authentication" {
+        usecase "Register Account" as UC_Register
+        usecase "Login" as UC_Login
+    }
+
+    package "User and Shop Management" {
+        usecase "Edit Profile" as UC_EditProfile
+        usecase "Edit Shop Profile" as UC_EditShopProfile
+    }
+}
+
+rectangle "Buyer" {
+    package "Jewellery Buyer" {
+        usecase "View Jewelry List" as UC_ViewList
+        usecase "View Jewelry Details" as UC_ViewDetails
+    }
+
+    package "Transaction Buyer" {
+        usecase "View Transaction History" as UC_TransactionHistory
+    }
+}
+
+rectangle "Seller" {   
+    package "Jewellery Seller" {
+        usecase "View Jewelry Information" as UC_ViewInfo
+        usecase "Add Jewelry Information" as UC_AddInfo
+        usecase "Edit Jewelry Information" as UC_EditInfo
+        usecase "Delete Jewelry Information" as UC_DeleteInfo
+    }
+
+    package "Transaction Seller" {
+        usecase "View Order History" as UC_BuyerHistory
+        usecase "Add Item to Cart" as UC_SellerAddItem
+        usecase "Edit Item in Cart" as UC_SellerEditItem
+        usecase "Remove Item from Cart" as UC_SellerDeleteItem
+        usecase "View Cart Contents" as UC_SellerViewCart
+        usecase "Confirm Transaction" as UC_SellerConfirm
+        usecase "View Buyer Orders" as UC_SellerViewOrders
+    }
+}
+  "Buyer" -- UC_Register
+  "Buyer" -- UC_Login
+  "Buyer" -- UC_EditProfile
+
+  UC_ViewList -- "Buyer"
+  UC_ViewDetails -- "Buyer"
+  UC_TransactionHistory -- "Buyer"  
+
+   UC_Login -- "Seller"
+   UC_EditProfile -- "Seller"
+   UC_EditShopProfile -- "Seller"
+  
+  "Seller" -- UC_AddInfo
+  "Seller" -- UC_EditInfo
+  "Seller" -- UC_DeleteInfo
+  "Seller" -- UC_SellerAddItem
+  "Seller" -- UC_ViewInfo
+  "Seller" -- UC_SellerEditItem
+  "Seller" -- UC_SellerDeleteItem
+  "Seller" -- UC_SellerViewCart
+  "Seller" -- UC_SellerConfirm
+  "Seller" -- UC_SellerViewOrders
+
+
+  UC_Register .> UC_Login : extends
+  UC_SellerConfirm .> UC_SellerViewCart : include
+
+
+
+@enduml

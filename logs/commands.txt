@@ -1,0 +1,8 @@
+//save summary
+php artisan test --testdox-text logs/test/textdox.txt
+
+//save with details
+php artisan test --log-events-text logs/test/logs-event-text.txt
+
+//console
+php artisan test --testdox

@@ -4,21 +4,28 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jewellery;
-use Illuminate\Http\Request;
 
 class JewelleryController extends Controller
 {
     public function index()
     {
         $jewelleries = Jewellery::latest()->filterByName(request()->query())->paginate(10);
+
         return view('admin.jewellery.index', compact('jewelleries'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.jewellery.create');
     }
 
-    public function store(){
+    public function edit(Jewellery $jewellery)
+    {
+        return view('admin.jewellery.edit', compact('jewellery'));
+    }
+
+    public function store()
+    {
 
         $input = request()->validate([
             'name' => 'required|string|max:255',
@@ -31,14 +38,12 @@ class JewelleryController extends Controller
         $jewellery = Jewellery::create($input);
 
         $jewellery->addMediaFromRequest('image')->toMediaCollection('image');
+
         return redirect()->route('admin.jewellery.index');
     }
 
-    public function edit(Jewellery $jewellery){
-        return view('admin.jewellery.edit', compact('jewellery'));
-    }
-
-    public function update(Jewellery $jewellery){
+    public function update(Jewellery $jewellery)
+    {
         $input = request()->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -48,17 +53,18 @@ class JewelleryController extends Controller
         ]);
         $jewellery->update($input);
 
-        if(request('image')) {
+        if (request('image')) {
             $jewellery->clearMediaCollection('image');
             $jewellery->addMediaFromRequest('image')->toMediaCollection('image');
         }
-        
+
         return redirect()->route('admin.jewellery.index');
     }
 
     public function destroy(Jewellery $jewellery)
     {
         $jewellery->delete();
+
         return redirect()->route('admin.jewellery.index');
     }
 }

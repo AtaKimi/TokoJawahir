@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin\BuyBack;
 
-use Livewire\Component;
 use App\Models\BuyBackDetail;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Component;
 
 class CartDetail extends Component
 {
@@ -31,30 +31,30 @@ class CartDetail extends Component
         $this->resetValidation();
         Validator::make(
             ['count' => $this->count],
-            ['count' => ['required', 'integer', 'min:0', 'max:' . $this->transaction_detail->quantity_left]],
+            ['count' => ['required', 'integer', 'min:0', 'max:'.$this->transaction_detail->quantity_left]],
             [
                 'count.required' => 'Quantity is required',
                 'count.integer' => 'Quantity must be an integer',
                 'count.min' => 'Quantity must be at least 0',
-                'count.max' => 'Quantity must be less than or equal to ' . $this->transaction_detail->quantity_left
+                'count.max' => 'Quantity must be less than or equal to '.$this->transaction_detail->quantity_left,
             ],
         )->validate();
 
         if ($this->count <= 0 or $this->transaction_detail->quantity_left <= 0) {
-            if (!empty($this->buy_back_detail)) {
+            if (! empty($this->buy_back_detail)) {
                 $this->lastQuantity = $this->buy_back_detail->quantity;
                 $this->buy_back_detail->delete();
                 $this->buy_back_detail = null;
             }
             $this->count = 0;
-        } else if ($this->count <= $this->transaction_detail->quantity_left) {
+        } elseif ($this->count <= $this->transaction_detail->quantity_left) {
             if (empty($this->buy_back_detail)) {
                 $this->buy_back_detail = BuyBackDetail::create([
                     'buy_back_id' => $this->buy_back->id,
                     'transaction_detail_id' => $this->transaction_detail->id,
                     'quantity' => $this->count,
                     'total' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count,
-                    'total_sold' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count - ($this->transaction_detail->total / $this->transaction_detail->quantity) * ($this->buy_back->buyBackPercentage->percentage / 100)
+                    'total_sold' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count - ($this->transaction_detail->total / $this->transaction_detail->quantity) * ($this->buy_back->buyBackPercentage->percentage / 100),
                 ]);
                 $this->lastQuantity = 0;
             } else {
@@ -62,7 +62,7 @@ class CartDetail extends Component
                 $this->buy_back_detail->update([
                     'quantity' => $this->count,
                     'total' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count,
-                    'total_sold' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count - ($this->transaction_detail->total / $this->transaction_detail->quantity * $this->count) * ($this->buy_back->buyBackPercentage->percentage / 100)
+                    'total_sold' => ($this->transaction_detail->total / $this->transaction_detail->quantity) * $this->count - ($this->transaction_detail->total / $this->transaction_detail->quantity * $this->count) * ($this->buy_back->buyBackPercentage->percentage / 100),
                 ]);
             }
         }

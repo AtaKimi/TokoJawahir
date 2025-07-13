@@ -1,0 +1,42 @@
+@startuml
+start
+
+partition "User Interface" {
+  :View Profile Page;
+  if (Click "Edit Info"?) then (True)
+    :Display Edit Profile Form;
+    :Input New Information;
+    :Submit Changes;
+  elseif (Click "Edit Photo"?) then (True)
+    :Display Upload Photo Form;
+    :Select New Photo;
+    :Submit Photo;
+  else (False)
+    stop
+  endif
+}
+
+partition "Backend" {
+    if ("Update Profile Info" recieved?) then (True)
+        :Update Profile Info;
+        if (Validated?) then (False)
+            :Send Error Message;
+            kill
+            else (True)    
+        endif
+        :Save Profile Information;
+        elseif ("Update Profile Photo" recieved?) then (True)
+        :Update Profile Photo;
+        if (Validated?) then (False)
+            :Send Error Message;
+            kill
+            else (True)    
+        endif
+        :Save Profile Photo;
+        else (False)
+        stop
+    endif
+}
+
+stop
+@enduml

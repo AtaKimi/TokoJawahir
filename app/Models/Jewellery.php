@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Jewellery extends Model implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\JewelleryFactory> */
-    use HasFactory, InteractsWithMedia, HasFilter;
+    use HasFactory, HasFilter, InteractsWithMedia;
 
     protected $fillable = [
         'name',

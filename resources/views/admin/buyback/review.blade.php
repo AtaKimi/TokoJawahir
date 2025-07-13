@@ -7,6 +7,9 @@
         <x-admin.user.bubble img="{{ $user->getFirstMediaUrl('image') }}" name="{{ $user->name }}"
             phone="{{ $user->phone }}" />
     </div>
+
+
+
     <div class="overflow-x-auto">
         <table class="table">
             <thead>
@@ -58,41 +61,77 @@
                     </tr>
                 @empty
                 @endforelse
-                <tr>
-                    <th colspan="1" class="font-bold">Total</th>
-                    <th colspan="1" class="text-center font-bold">
-                    </th>
-                    <th colspan="1" class="text-center font-bold">
-                        {{ $buy_back->buyBackDetails()->sum('quantity') }}</th>
-                    </th>
-                    <th colspan="1" class="text-center font-bold">
-                        {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total'), 2, ',', '.') }}
-                    </th>
-                    </th>
-                    <th></th>
-                    <th colspan="1" class="text-center font-bold">
-                        {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total_sold'), 2, ',', '.') }}
-                    </th>
-                </tr>
+
+                @if ($buy_back->total_reduction)
+                    <tr>
+                        <th colspan="1" class="font-bold">Sub Total</th>
+                        <th colspan="1" class="text-center font-bold">
+                        </th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ $buy_back->buyBackDetails()->sum('quantity') }}</th>
+                        </th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total'), 2, ',', '.') }}
+                        </th>
+                        </th>
+                        <th></th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total_sold'), 2, ',', '.') }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="5" class="font-bold">Total Pengurangan</th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->total_reduction, 2, ',', '.') }}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="5" class="font-bold">Total</th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->total_sold, 2, ',', '.') }}
+                        </th>
+                    </tr>
+                @else
+                    <tr>
+                        <th colspan="1" class="font-bold">Total</th>
+                        <th colspan="1" class="text-center font-bold">
+                        </th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ $buy_back->buyBackDetails()->sum('quantity') }}</th>
+                        </th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total'), 2, ',', '.') }}
+                        </th>
+                        </th>
+                        <th></th>
+                        <th colspan="1" class="text-center font-bold">
+                            {{ 'Rp. ' . number_format($buy_back->buyBackDetails()->sum('total_sold'), 2, ',', '.') }}
+                        </th>
+                    </tr>
+                @endif
             </tbody>
-
-
         </table>
     </div>
 
     @if ($buy_back->status == App\Enum\BuyBackStatus::PENDING->value)
         <div class="flex justify-between mt-4">
-            <form action="{{ route('admin.buyback.confirmation', [$user, $buy_back]) }}" method="post">
+            <form action="{{ route('admin.buyback.confirmation', [$user, $buy_back]) }}" method="post"
+                class="flex items-end">
                 @csrf
                 @method('PUT')
                 <input class="hidden" type="text" name="status" value="failed">
                 <button type="submit" class="btn btn-error btn-wide">Cancel</button>
             </form>
+
+
             <form action="{{ route('admin.buyback.confirmation', [$user, $buy_back]) }}" method="post">
                 @csrf
                 @method('PUT')
-                <input class="hidden" type="text" name="status" value="success">
-                <button type="submit" class="btn btn-primary btn-wide">Konfrimasi</button>
+                <div class="flex flex-col gap-2">
+                    <x-admin.form.input name="total_reduction" label="Total Pengurangan" placeholder="0" />
+                    <input class="hidden" type="text" name="status" value="success">
+                    <button type="submit" class="btn btn-primary btn-wide">Konfrimasi</button>
+                </div>
             </form>
         </div>
     @endif

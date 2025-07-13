@@ -6,9 +6,9 @@
     <x-header.link />
 </head>
 
-<body class="font-sans bg-gray-50 min-h-screen ">
+<body class="font-sans bg-gray-50">
     <main>
-        <x-admin.sidebar>
+        <x-admin.sidebar :store="$store">
             {{ $slot }}
         </x-admin.sidebar>
     </main>

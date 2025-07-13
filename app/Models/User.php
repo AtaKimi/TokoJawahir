@@ -15,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, InteractsWithMedia, HasFilter;
+    use HasFactory, HasFilter, HasRoles, InteractsWithMedia, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,7 @@ class User extends Authenticatable implements HasMedia
         'email',
         'password',
         'phone',
+        'address',
     ];
 
     /**
@@ -65,5 +66,14 @@ class User extends Authenticatable implements HasMedia
     public function buyBacks()
     {
         return $this->hasMany(BuyBack::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (User $user) {
+            if ($user->is_admin) {
+                $user->assignRole('admin');
+            }
+        });
     }
 }

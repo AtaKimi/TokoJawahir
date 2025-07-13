@@ -22,14 +22,14 @@
                     value="{{ $jewellery->description }}" />
                 <x-admin.form.file-input name="image" label="Foto Perhiasan" placeholder="Foto Perhiasan" />
                 <div class="flex items-center gap-3">
-                    <img src="{{$jewellery->getFirstMediaUrl('image')}}" alt="" class="w-24 rounded-md">
+                    <img src="{{ $jewellery->getFirstMediaUrl('image') }}" alt="" class="w-24 rounded-md">
                     <h1 class="text-base font-bold tracking-wide">Foto Terkahir</h1>
                 </div>
             </div>
         </div>
 
         <div class="w-full flex justify-end">
-            <button class="btn btn-primary w-32" type="submit">Tambah</button>
+            <button class="btn btn-warning w-32" type="submit">Edit</button>
         </div>
     </form>
 </x-layouts.admin>
