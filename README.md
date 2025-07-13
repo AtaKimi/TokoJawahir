@@ -59,13 +59,13 @@ This project was developed with a strong emphasis on code quality and reliabilit
 *(This is where you will place your screenshots. A great README always includes visuals!)*
 
 **Customer Product Catalog**
-*(Replace this with a screenshot of your product page)*
+<img width="1920" height="2674" alt="image" src="https://github.com/user-attachments/assets/19b536a4-dc93-4998-a078-d06cc9d13438" />
 
 **Admin Dashboard**
-*(Replace this with a screenshot of the admin's order management view)*
+<img width="1920" height="2674" alt="image" src="https://github.com/user-attachments/assets/aeb57519-e710-4cd5-8657-19afd13dd710" />
 
 **Digital Buy-Back Process**
-*(Replace this with a screenshot of the buy-back feature in action)*
+<img width="1920" height="1661" alt="image" src="https://github.com/user-attachments/assets/84aa78c6-12a2-47a6-b518-45ccad10d762" />
 
 ## Installation and Setup
 
