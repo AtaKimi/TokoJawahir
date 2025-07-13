@@ -1,66 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## TokoJawahir - Jewelry Store Management & E-Commerce System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+TokoJawahir is a full-stack web application built to digitalize the entire business process of a traditional jewelry store. This project was conceived after a direct interview with a store owner to address their real-world operational challenges. The system provides a comprehensive solution for product management, sales transactions, and a unique digital buy-back process.
 
-## About Laravel
+## The Problem
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Traditional jewelry stores often operate with manual, paper-based systems for sales and buy-backs. This leads to several critical issues:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Inefficiency: Locating past transaction details for a customer's buy-back request is slow and cumbersome.
+* Risk of Data Loss: Physical receipts can be lost by the customer or damaged, complicating the buy-back process.
+* Lack of Digital Presence: The store has no online catalog, limiting its reach and preventing customers from browsing products from home.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+TokoJawahir was built to solve these problems by creating a single, centralized, and efficient digital platform.
 
-## Learning Laravel
+## Key Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This application is divided into modules that reflect the real-world workflow of the jewelry store.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+**1. Authentication & Authorization**
+* Role-Based Access: Separate login and registration systems for Admin (Store Owner) and Customers.
+* Secure authentication to protect user data and transaction history.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**2. Product & Catalog Management (Admin)**
+* Full CRUD Functionality: The admin can easily Create, Read, Update, and Delete jewelry products in the catalog.
+* Dynamic Pricing: Product details, especially prices, can be updated quickly to reflect fluctuating gold prices.
+* Public Catalog: A beautifully displayed product list for customers, complete with images, weight, karat, and price details.
 
-## Laravel Sponsors
+**3. E-Commerce & Sales Workflow**
+* Shopping Cart System: Customers can add multiple items to their cart for a seamless shopping experience.
+* Order Management: The admin has a dedicated dashboard to view incoming orders, manage stock, and confirm transactions upon successful payment.
+* Customer Purchase History: Every customer has a personal dashboard to view their complete purchase history.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**4. Digital Buy-Back Module (Core Innovative Feature)**
+* Digital Verification: Eliminates the need for physical receipts. The admin can securely look up a customer's entire purchase history simply by searching for their registered phone number.
+* Streamlined Process: The admin can select the specific item to be bought back from the customer's history.
+* Dynamic Price Calculation: The system allows for price deductions (e.g., for damage) to be entered manually, providing flexibility for the admin to determine the final buy-back price.
+* Transaction Logging: All buy-back transactions are recorded digitally, ensuring transparency for both the store and the customer.
 
-### Premium Partners
+## Tech Stack
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+This project was built using a modern, full-stack approach with the TALL Stack:
 
-## Contributing
+* Back-End: PHP, Laravel
+* Front-End / Full-Stack: Livewire, Alpine.js, Tailwind CSS
+* Database: MySQL
+* Version Control: Git
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Testing & Code Quality
 
-## Code of Conduct
+This project was developed with a strong emphasis on code quality and reliability. It features a robust testing suite and automated tooling to ensure all business logic functions as expected.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+* Unit & Feature Tests: Written using Pest/PHPUnit to cover critical components like user authentication, product management, and the transaction process.
+* Test-Driven Approach: Key functionalities were developed following a Test-Driven Development (TDD) methodology to ensure code is predictable and maintainable.
+* Code Style Consistency: Utilizes Laravel Pint to automatically enforce a clean and consistent code style across the entire codebase, improving readability and maintainability.
+* High Code Coverage: The test suite aims for high code coverage to minimize bugs and allow for confident refactoring.
 
-## Security Vulnerabilities
+## Screenshots
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+*(This is where you will place your screenshots. A great README always includes visuals!)*
 
-## License
+**Customer Product Catalog**
+*(Replace this with a screenshot of your product page)*
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Admin Dashboard**
+*(Replace this with a screenshot of the admin's order management view)*
+
+**Digital Buy-Back Process**
+*(Replace this with a screenshot of the buy-back feature in action)*
+
+## Installation and Setup
+
+To run this project locally, follow these steps:
+
+1.  **Clone the repository:**
+    git clone https://github.com/AtaKimi/TokoJawahir.git
+    cd TokoJawahir
+
+2.  **Install dependencies (PHP & JS):**
+    composer install
+    npm install
+
+3.  **Setup your environment file:**
+    * Copy .env.example to a new file named .env.
+    * Run `php artisan key:generate`.
+    * Configure your database details in the .env file.
+
+4.  **Run database migrations:**
+    php artisan migrate
+
+5.  **(Optional) Seed the database with dummy data:**
+    php artisan db:seed
+
+6.  **Run the development server:**
+    npm run dev
+    And in a separate terminal:
+    php artisan serve
+
+The application should now be running on http://127.0.0.1:8000.
