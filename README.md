@@ -61,8 +61,8 @@ This project was developed with a strong emphasis on code quality and reliabilit
 **Customer Product Catalog**
 <img width="1920" height="2674" alt="image" src="https://github.com/user-attachments/assets/19b536a4-dc93-4998-a078-d06cc9d13438" />
 
-**Admin Dashboard**
-<img width="1920" height="2674" alt="image" src="https://github.com/user-attachments/assets/aeb57519-e710-4cd5-8657-19afd13dd710" />
+**Admin Catalog**
+<img width="1934" height="2154" alt="image" src="https://github.com/user-attachments/assets/2103a968-6a2e-422d-a783-9cdbbac3a7bc" />
 
 **Digital Buy-Back Process**
 <img width="1920" height="1661" alt="image" src="https://github.com/user-attachments/assets/84aa78c6-12a2-47a6-b518-45ccad10d762" />
